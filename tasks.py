@@ -8,6 +8,7 @@ import time
 import yaml
 from contextlib import contextmanager
 from invoke import Collection, UnexpectedExit, task
+import subprocess
 
 # Some default values
 PACKAGE_NAME = "ta_lib"
@@ -748,6 +749,15 @@ def run_unit_tests(c, platform=PLATFORM, env=DEV_ENV, markers=None):
             test_usecase = op.join(TESTS_FOLDER, usecase)
             c.run(f"""pytest -v "{test_usecase}" {markers}""")
 
+@task(name="CodebaseComplexity")
+def calculate_complexity_score():
+    command = ['radon', 'cc', '--total-average', './']
+    try:
+        result = subprocess.check_output(command)
+        output = result.decode('utf-8')
+        print(output)
+    except subprocess.CalledProcessError as e:
+        print(f"An error occurred: {e}")
 
 @task(name="vuln")
 def run_vulnerability_test(c, platform=PLATFORM, env=DEV_ENV):
