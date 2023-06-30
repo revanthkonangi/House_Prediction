@@ -1,7 +1,5 @@
 # Ignore the .env file
 .env
-*.ZoneIdentifier
-*.Identifier
 
 # ignore html files
 *.htm[l]
@@ -12,6 +10,8 @@
 
 # ignore joblib files
 *.joblib
+*.ZoneIdentifier
+*.Identifier
 
 # ignore package version file
 **/_version.py
